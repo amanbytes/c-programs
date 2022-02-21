@@ -1,0 +1,1743 @@
+Slip – 2
+
+Database Management Systems 
+Consider the following database
+Employee(eno,ename,designation,salary)
+Department(dno,dname,location)
+Q 2) A Create the above database in PostGreSQL and insert sufficient records.
+db8=# create table department(dno int primary key,dname varchar(20),dlocation varchar(20));
+CREATE TABLE
+db8=# insert into department(dno,dname,dlocation)values(1,'DR','sinner');
+INSERT 0 1
+db8=# insert into department(dno,dname,dlocation)values(2,'HR','pune');
+INSERT 0 1
+db8=# insert into department(dno,dname,dlocation)values(3,'PR','pune');
+INSERT 0 1
+db8=# insert into department(dno,dname,dlocation)values(4,'HR','mumbai');
+INSERT 0 1
+db8=# select * from department;
+
+
+db8=# create table employee(eno int primary key,ename varchar(20),salary int));
+CREATE TABLE
+db8=# insert into employee(eno,ename,salary)values(3,'tejas',20000);
+INSERT 0 1
+db8=# insert into employee(eno,ename,salary)values(4,'yadnesh',60000);
+INSERT 0 1
+db8=# insert into employee(eno,ename,salary)values(5,'rajet',10000);
+INSERT 0 1
+db8=# insert into employee(eno,ename,salary)values(6,'harsh',30000);
+INSERT 0 1
+db8=# select * from employee;
+
+
+
+B Execute the following queries in PostGreSQL (any 3)
+i.	Give a 5% raise in salary to all the employees.
+db8=# update employee set salary=salary+(salary+0.05);
+UPDATE 6
+db8=# select * from employee;
+	
+ii. Display average salary of an employee.
+db8=# select avg(salary)as avg from employee;
+   avg
+----------
+ 70000.05
+(1 row)
+
+iii. List the details of all the departments located at _____city.
+db8=# select * from department where dlocation='pune';
+
+iv. Display the details of employees whose names ends with an
+alphabet___.
+db8=# select ename from employee where ename like '%a' order by ename;
+
+
+v. Display the location of ‘HR’ department
+db8=# select * from department dlocation where dname='HR';
+
+Consider the following database
+Person (pnumber, pname, birthdate, income)
+Area (aname, area_type,pincode)
+The relationship is as follows: Person-Area: many-to-one
+Q 2) A Create the above database in PostGreSQL and insert sufficient records. [5 marks]
+
+db8=# create table person2(pnumber int primary key,pname varchar(10),bdate date,income float);
+CREATE TABLE
+db8=# insert into person2(pnumber,pname,bdate,income)values(2,'pournima','1-feb-2003',30000);
+INSERT 0 1
+db8=# insert into person2(pnumber,pname,bdate,income)values(3,'sneha','2-july-2002',40000);
+INSERT 0 1
+db8=# insert into person2(pnumber,pname,bdate,income)values(4,'rajet','4-march-2001',50000);
+INSERT 0 1
+db8=# insert into person2(pnumber,pname,bdate,income)values(5,'yadnesh','8-july-2004',30000);
+INSERT 0 1
+db8=# select * from person2;
+ pnumber |  pname   |   bdate    | income
+---------+----------+------------+--------
+       2 | pournima | 2003-02-01 |  30000
+       3 | sneha    | 2002-07-02 |  40000
+       4 | rajet    | 2001-03-04 |  50000
+       5 | yadnesh  | 2004-07-08 |  30000
+(4 rows)
+
+
+db8=# create table area(aname varchar primary key(20),atype varchar(20),pincode float);
+ERROR:  syntax error at or near "("
+LINE 1: create table area(aname varchar primary key(20),atype varcha...
+                                                   ^
+db8=# create table area(aname varchar primary key,atype varchar(20),pincode float);
+CREATE TABLE
+db8=# insert into area(aname,atype,pincode)values('kalyaninagar','urban',422103);
+INSERT 0 1
+db8=# insert into area(aname,atype,pincode)values('shardanagar','rural',411205);
+INSERT 0 1
+db8=# insert into area(aname,atype,pincode)values('dubenagar','urban',588964);
+INSERT 0 1
+db8=# insert into area(aname,atype,pincode)values('nainanagar','rural',665435);
+INSERT 0 1
+db8=# select * from area;
+    aname     | atype | pincode
+--------------+-------+---------
+ kalyaninagar | urban |  422103
+ shardanagar  | rural |  411205
+ dubenagar    | urban |  588964
+ nainanagar   | rural |  665435
+B Execute the following queries in PostGreSQL (any 3)
+i)	List the details of all people whose name starts with the alphabet ‘R’.
+db8=# select pname from person2 where pname like 'r%' order by pname;
+ pname
+-------
+ rajet
+(1 row)
+  ii. List the names of all people whose birthday falls in the month of
+‘July’.
+                     ^
+db8=# select * from person2 where bdate='2004-07-08';
+ pnumber |  pname  |   bdate    | income
+---------+---------+------------+--------
+       5 | yadnesh | 2004-07-08 |  30000
+(1 row)
+iii. Display the details of people in the sorted order of their income.
+
+db8=# select * from person2 order by income ASC;
+ pnumber |  pname   |   bdate    | income
+---------+----------+------------+--------
+       2 | pournima | 2003-02-01 |  30000
+       5 | yadnesh  | 2004-07-08 |  30000
+       3 | sneha    | 2002-07-02 |  40000
+       4 | rajet    | 2001-03-04 |  50000
+(4 rows)
+iv. Display the count of areas of ‘urban’ type.
+
+db8=# select * from area where atype='urban';
+    aname     | atype | pincode
+--------------+-------+---------
+ kalyaninagar | urban |  422103
+ dubenagar    | urban |  588964
+(2 rows)
+v. Change the pincode of ‘kalyaninagar’ to 411036.
+
+db8=# update area set pincode=411036 where aname='kalyaninagar';
+UPDATE 1
+db8=# select * from area;
+    aname     | atype | pincode
+--------------+-------+---------
+ shardanagar  | rural |  411205
+ dubenagar    | urban |  588964
+ nainanagar   | rural |  665435
+ kalyaninagar | urban |  411036     (4 row
+Slip – 4
+
+Consider the following database
+Policy (pno,pname,premium_amt,policy_type)
+Customer(cno,cname.city, agent_name)
+The relationship is as follows: Policy-Customer: many-to-one. The ‘policy_type’ can have
+values as ‘Yearly’, ’Half-yearly’ or ‘Monthly’.
+Q 2) A Create the above database in PostGreSQL and insert sufficient records.
+db8=# create table policy(pno int primary key,pname varchar(20),amount float,ptype varchar(20));
+CREATE TABLE
+db8=# insert into policy(pno,pname,amount,ptype)values(1,'old age  policy',12000,'yearly');
+INSERT 0 1
+db8=# insert into policy(pno,pname,amount,ptype)values(1,'jeevan anand policy',13000,'monthly');
+ERROR:  duplicate key value violates unique constraint "policy_pkey"
+DETAIL:  Key (pno)=(1) already exists.
+db8=# insert into policy(pno,pname,amount,ptype)values(2,'jeevan anand policy',13000,'monthly');
+INSERT 0 1
+db8=# insert into policy(pno,pname,amount,ptype)values(3,'life time policy',1400,'half yearly');
+INSERT 0 1
+db8=# insert into policy(pno,pname,amount,ptype)values(4,'jeevan anand policy',1500,'yearly');
+INSERT 0 1
+db8=# insert into policy(pno,pname,amount,ptype)values(5,'old age policy',11000,'monthly');
+INSERT 0 1
+db8=# select * form policy;
+ERROR:  syntax error at or near "form"
+LINE 1: select * form policy;
+                 ^
+db8=# select * from policy;
+ pno |        pname        | amount |    ptype
+-----+---------------------+--------+-------------
+   1 | old age  policy     |  12000 | yearly
+   2 | jeevan anand policy |  13000 | monthly
+   3 | life time policy    |   1400 | half yearly
+   4 | jeevan anand policy |   1500 | yearly
+   5 | old age policy      |  11000 | monthly
+(5 rows)
+
+
+db8=# create table coustomer(cno int primery key,cname varchar(20),ccity varchar(20),agent name varchar(20));
+ERROR:  syntax error at or near "primery"
+LINE 1: create table coustomer(cno int primery key,cname varchar(20)...
+                                       ^
+db8=# create table coustomer(cno int primary key,cname varchar(20),ccity varchar(20),agent name varchar(20));
+ERROR:  syntax error at or near "varchar"
+LINE 1: ...ey,cname varchar(20),ccity varchar(20),agent name varchar(20...
+                                                             ^
+db8=# create table coustomer(cno int primary key,cname varchar(20),ccity varchar(20),agentname varchar(20));
+CREATE TABLE
+db8=# insert into coustomer(cno,cname,ccity,agentname)values(1,'purnima','sinner','mr.patil');
+INSERT 0 1
+db8=# insert into coustomer(cno,cname,ccity,agentname)values(2,'sneha','satara','mr.tarate');
+INSERT 0 1
+db8=# insert into coustomer(cno,cname,ccity,agentname)values(3,'rajet','sinner','mr.ankar');
+INSERT 0 1
+db8=# insert into coustomer(cno,cname,ccity,agentname)values(4,'tejas','sinner','mr.ingle');
+INSERT 0 1
+db8=# select * from coustomer;
+ cno |  cname  | ccity  | agentname
+-----+---------+--------+-----------
+   1 | purnima | sinner | mr.patil
+   2 | sneha   | satara | mr.tarate
+   3 | rajet   | sinner | mr.ankar
+   4 | tejas   | sinner | mr.ingle
+(4 rows)
+B Execute the following queries in PostGreSQL (any 3)
+i. List the details of all customers who live in ______city.
+db8=# select * from coustomer where ccity='sinner';
+ cno |  cname  | ccity  | agentname
+-----+---------+--------+-----------
+   1 | purnima | sinner | mr.patil
+   3 | rajet   | sinner | mr.ankar
+   4 | tejas   | sinner | mr.ingle
+(3 rows)
+     ii).Display the average premium amount.
+db8=# select avg(amount)as avg from policy;
+ avg
+------
+ 7780
+(1 row)
+
+iii. Count the number of customers who have taken ‘Jeevan Anand’
+policy.
+db8=# select count(pno) as count from policy where pname='jeevan anand policy';
+ count
+-------
+     2
+(1 row)
+iv)Increases the premium amount for ‘Monthly ‘policies by 10%.
+db8=# update policy set amount=amount+(amount+0.1) where ptype='monthly';
+UPDATE 2
+db8=# select * from policy;
+ pno |        pname        | amount  |    ptype
+-----+---------------------+---------+-------------
+   1 | old age  policy     |   12000 | yearly
+   3 | life time policy    |    1400 | half yearly
+   4 | jeevan anand policy |    1500 | yearly
+   2 | jeevan anand policy | 26000.1 | monthly
+   5 | old age policy      | 22000.1 | monthly
+(5 rows)
+v. Display the policy_type wise count of policies.
+db8=# select pname from policy;
+        pname
+---------------------
+ old age  policy
+ life time policy
+ jeevan anand policy
+ jeevan anand policy
+ old age policy
+(5 rows)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Slip – 5
+
+Section II : Database Management Systems [15 marks]
+Consider the following database
+Doctor (dno, dname, city)
+Patient (pno, pat_name, city, disease)
+The relationship is as follows: Doctor-Patient: many-to-many with Fee as a descriptive attribute .
+Q 2) A Create the above database in PostGreSQL and insert sufficient records. [5 marks]
+db8=# create table doctor(dno int primary key,dname varchar(20),dcity varchar(20));
+CREATE TABLE
+db8=# insert into doctor(dno,dname,dcity)values(1,'pournima','sinner');
+INSERT 0 1
+db8=# insert into doctor(dno,dname,dcity)values(2,'sneha','sinner');
+INSERT 0 1
+db8=# insert into doctor(dno,dname,dcity)values(3,'dr.patil','mumbai');
+INSERT 0 1
+db8=# insert into doctor(dno,dname,dcity)values(4,'rajet','satara');
+INSERT 0 1
+db8=# select * from doctor;
+ dno |  dname   | dcity
+-----+----------+--------
+   1 | pournima | sinner
+   2 | sneha    | sinner
+   3 | dr.patil | mumbai
+   4 | rajet    | satara
+(4 rows)
+db8=# create table patient(pno int primary key,pname varchar(20),pcity varchar(20),pdisease varchar(20));
+CREATE TABLE
+db8=# insert into patient(pno,pname,pcity,pdisease)values(1,'asavari','cancer','nashik');
+INSERT 0 1
+db8=# insert into patient(pno,pname,pcity,pdisease)values(2,'akshita','corona','yeola');
+INSERT 0 1
+db8=# insert into patient(pno,pname,pcity,pdisease)values(3,'pournima','fever','sinner');
+INSERT 0 1
+db8=# insert into patient(pno,pname,pcity,pdisease)values(4,'sneha','cancer','satara');
+INSERT 0 1
+db8=# insert into patient(pno,pname,pcity,pdisease)values(5,'yadnesh','cancer','nashik');
+INSERT 0 1
+db8=# select * from patient;
+ pno |  pname   | pdisease  | pcity
+-----+----------+--------+----------
+   1 | asavari  | cancer | nashik
+   2 | akshita  | corona | yeola
+   3 | pournima | fever  | sinner
+   4 | sneha    | cancer | satara
+   5 | yadnesh  | cancer | nashik
+(5 rows)
+B Execute the following queries in PostGreSQL (any 3)
+i. List the details of all the doctors from ______ city.
+db8=# select * from doctor where dcity='sinner';
+ dno |  dname   | dcity
+-----+----------+--------
+   1 | pournima | sinner
+   2 | sneha    | sinner
+(2 rows)
+ii. Display count of patients
+db8=# select count(pno)as count from patient;
+ count
+-------
+     5
+(1 row)
+ii.	List the names of the patients suffering from ‘cancer’ disease.
+db8=# select * from patient where pdisease=`cancer’;
+ pno |  pname   | pcity  | pdisease
+-----+----------+--------+----------
+             1 | asavari  | cancer | nashik
+             4 | sneha    | cancer | satara
+             5 | yadnesh  | cancer | nashik
+ 
+
+iv. Change the city of ‘Dr. Patil’ to Pune.
+db8=# update doctor set dcity='pune' where dname='dr.patil';
+UPDATE 1
+db8=# select * from doctor;
+ dno |  dname   | dcity
+-----+----------+--------
+   1 | pournima | sinner
+   2 | sneha    | sinner
+   4 | rajet    | satara
+   3 | dr.patil | pune
+(4 rows)
+iv. Change the city of ‘Dr. Patil’ to Pune.
+db8=# select pname from patient where pname like '%a' order by pname;
+  pname
+----------
+ akshita
+ pournima
+ sneha
+(3 rows)
+
+
+Slip – 6
+
+Section II : Database Management Systems [15 marks] 
+Consider the following database 
+Student (rno,name,city) 
+Teacher(tno,tname,phone_no,salary) 
+The relationship is as follows: Student-Teacher: many-to-many with subject as a descriptive attribute .
+
+Q 2) A Create the above database in PostGreSQL and insert sufficient records. [5 marks]  create table student(rno int, name varchar(20), city varchar(10));
+insert into student(rno, name, city)values(01, 'Sneha', 'Satara');
+INSERT 0 1
+postgres=# insert into student(rno, name, city)values(02, 'Tejas', 'Nashik');
+INSERT 0 1
+postgres=# insert into student(rno, name, city)values(03, 'Yadnesh', 'Nashik');
+INSERT 0 1
+postgres=# insert into student(rno, name, city)values(04, 'Rajat', 'Sinnar');
+INSERT 0 1
+postgres=# insert into student(rno, name, city)values(05, 'Pournima', 'Sinnar');
+INSERT 0 1
+postgres=# insert into student(rno, name, city)values(06, 'Harsh', 'Mumbai');
+INSERT 0 1
+postgres=# select * from  student;
+ rno |   name   |  city
+-----+----------+--------
+   1 | Sneha    | Satara
+   2 | Tejas    | Nashik
+   3 | Yadnesh  | Nashik
+   4 | Rajat    | Sinnar
+   5 | Pournima | Sinnar
+   6 | Harsh    | Mumbai
+(6 rows)
+
+create table teacher1(tno int, tname varchar(20), phone_no float, salary float);
+CREATE TABLE
+postgres=#  insert into teacher1(tno, tname, phone_no, salary)values(1, 'Prof Patil', 9993336645, 30000);
+INSERT 0 1
+postgres=#  insert into teacher1(tno, tname, phone_no, salary)values(2, 'Prof Nisha', 9883336645, 50000);
+INSERT 0 1
+postgres=#  insert into teacher1(tno, tname, phone_no, salary)values(3, 'Prof Monika', 9883236645, 45000);
+INSERT 0 1
+postgres=#  insert into teacher1(tno, tname, phone_no, salary)values(4, 'Prof Monali', 9883236000, 25000);
+INSERT 0 1
+postgres=#  insert into teacher1(tno, tname, phone_no, salary)values(5, 'Prof Ingale', 9899236000, 45000);
+INSERT 0 1
+postgres=#  insert into teacher1(tno, tname, phone_no, salary)values(6, 'Prof Jagzap', 9899211000, 50000);
+INSERT 0 1
+postgres=# select * from teacher1;
+ tno |    tname    |  phone_no  | salary
+-----+-------------+------------+--------
+   1 | Prof Patil  | 9993336645 |  30000
+   2 | Prof Nisha  | 9883336645 |  50000
+   3 | Prof Monika | 9883236645 |  45000
+   4 | Prof Monali | 9883236000 |  25000
+   5 | Prof Ingale | 9899236000 |  45000
+   6 | Prof Jagzap | 9899211000 |  50000
+(6 rows)
+
+
+B Execute the following queries in PostGreSQL (any 3)                                [6 marks] 
+i.	List the names of students from______city.  
+                select * from student where city = 'Nashik';
+                rno |  name   |  city
+                -----+---------+--------
+                 2  | Tejas   | Nashik
+                 3 | Yadnesh | Nashik
+                 (2 rows)
+    
+
+
+
+
+     
+ii.	Display the count of students from ‘Mumbai’city.   
+               select count (city) as count from student where city = 'Mumbai';
+               count
+               -------
+              1
+              (1 row)
+
+
+iii       .  Change the phone number of ‘Prof. Patil’ to ‘9822131226’
+
+         update teacher1 set phone_no = 9822131226 where tname = 'Prof Patil';
+         UPDATE 1
+         postgres=# select * from teacher1;
+         tno |    tname    |  phone_no  | salary
+         -----+-------------+------------+--------
+         2 | Prof Nisha  | 9883336645 |  50000
+         3 | Prof Monika | 9883236645 |  45000
+         4 | Prof Monali | 9883236000 |  25000
+         5 | Prof Ingale | 9899236000 |  45000
+         6 | Prof Jagzap | 9899211000 |  50000
+         1 | Prof Patil  | 9822131226 |  30000
+         (6 rows)
+ 
+iv       . List the details of the teachers in the sorted order of their name.
+
+        select * from teacher1 order by tname asc;
+        tno |    tname    |  phone_no  | salary
+        -----+-------------+------------+--------
+        5 | Prof Ingale | 9899236000 |  45000
+       6 | Prof Jagzap | 9899211000 |  50000
+       4 | Prof Monali | 9883236000 |  25000
+       3 | Prof Monika | 9883236645 |  45000
+       2 | Prof Nisha  | 9883336645 |  50000
+       1 | Prof Patil  | 9822131226 |  30000
+(6	rows)
+
+
+
+
+iii.	List the names of the teachers who have salary less than 50000.  
+           select * from teacher1 where salary < 50000;
+           tno |    tname    |  phone_no  | salary
+           -----+-------------+------------+--------
+           3 | Prof Monika | 9883236645 |  45000
+           4 | Prof Monali | 9883236000 |  25000
+           5 | Prof Ingale | 9899236000 |  45000
+           1 | Prof Patil  | 9822131226 |  30000
+           (4 rows
+Slip – 7
+
+Consider the following database 
+Item (item_no, name, quantity) 
+Supplier (s_no, name, city) 
+The relationship is as follows: Item-Supplier: many-to-many with rate as a descriptive attribute .
+
+Q 2) A Create the above database in PostGreSQL and insert sufficient records. [5 marks]
+create table item(item_no int, name varchar(10), quantity int);
+insert into item(item_no, name, quantity)values(1, 'CPU', 40);
+INSERT 0 1	
+postgres=# insert into item(item_no, name, quantity)values(2, 'Monitor', 30);
+INSERT 0 1
+postgres=# insert into item(item_no, name, quantity)values(3, 'Mouse', 9);
+INSERT 0 1
+postgres=# insert into item(item_no, name, quantity)values(4, 'Keyboard', 5);
+INSERT 0 1
+postgres=# insert into item(item_no, name, quantity)values(5, 'Printer', 8);
+INSERT 0 1
+select * from item;
+ item_no |   name   | quantity
+---------+----------+----------
+       1 | CPU      |       40
+       2 | Monitor  |       30
+       3 | Mouse    |        9
+       4 | Keyboard |        5
+       5 | Printer  |        8
+(5 rows)
+
+create table supplier(s_no int, name varchar(20), city varchar(10));
+CREATE TABLE
+postgres=# insert into supplier(s_no, name, city)values(1, 'Sneha', 'Satara');
+INSERT 0 1
+postgres=# insert into supplier(s_no, name, city)values(2, 'Tejas', 'Nashik');
+INSERT 0 1
+postgres=# insert into supplier(s_no, name, city)values(3, 'Yadnesh', 'Nashik');
+INSERT 0 1
+postgres=# insert into supplier(s_no, name, city)values(4, 'Harsh', 'Mumbai');
+INSERT 0 1
+postgres=# insert into supplier(s_no, name, city)values(5, 'Rajat', 'Sinnar');
+INSERT 0 1
+postgres=# select * from supplier;
+ s_no |  name   |  city
+------+---------+--------
+    1 | Sneha   | Satara
+    2 | Tejas   | Nashik
+    3 | Yadnesh | Nashik
+    4 | Harsh   | Mumbai
+    5 | Rajat   | Sinnar
+   (5 rows)
+
+B Execute the following queries in PostGreSQL (any 3)                                        [6 marks]
+i.	Change the quantity for item ‘Mouse’ to 80.
+
+         update item set quantity = 80 where name = 'Mouse';
+         UPDATE 1
+         postgres=# select * from item;
+        item_no |   name   | quantity
+        ---------+----------+----------
+       1 | CPU      |       40
+       2 | Monitor  |       30
+       2 | Keyboard |        5
+       2 | Printer  |        8
+       2 | Mouse    |       80
+      (5 rows)
+
+
+ii.	List the details of the suppliers whose name begins with the alphabet ‘M’.
+         select name from supplier where name like 'M%' order by name;
+         name
+         ------
+         (0 rows)
+
+iii.	Display the count of items.
+         select count(quantity) as count from item;
+         count
+         -------
+         5
+        (1 row)
+
+
+iv.         List the names of suppliers who do not live in _______city.
+        
+       select * from supplier where city!= 'Satara';
+       s_no |  name   |  city
+       ------+---------+--------
+       2 | Tejas   | Nashik
+       3 | Yadnesh | Nashik
+        4 | Harsh   | Mumbai
+        5 | Rajat   | Sinnar
+       (4 rows)
+
+
+iv.	List the names of items with quantity less than 10.
+        select * from item where quantity < 10;
+        item_no |   name   | quantity
+        ---------+----------+----------
+       2 | Keyboard |        5
+       2 | Printer  |        8
+       (2 rows)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Slip – 8
+
+
+Consider the following Student-Teacher database 
+Student (sno , s_name, s_class) s_class can be either "FY", "SY" or "TY" 
+Teacher (tno , t_name, yrs_experience ) 
+The relationship is as follows: Student-Teacher: M-M with descriptive attribute Subject.
+
+
+Q 2) A Create the above database in PostGreSQL and insert sufficient records. [5 marks]
+
+create table student01(sno int, s_name varchar(20), s_class varchar(5));
+CREATE TABLE
+postgres=# insert into student01(sno, s_name, s_class)values(1, 'Sneha', 'SY');
+INSERT 0 1
+postgres=# insert into student01(sno, s_name, s_class)values(2, 'Tejas', 'TY');
+INSERT 0 1
+postgres=# insert into student01(sno, s_name, s_class)values(3, 'Pournima', 'FY');
+INSERT 0 1
+postgres=# insert into student01(sno, s_name, s_class)values(4, 'Yadnesh', 'SY');
+INSERT 0 1
+postgres=# insert into student01(sno, s_name, s_class)values(5, 'Harsh', 'FY');
+INSERT 0 1
+postgres=# insert into student01(sno, s_name, s_class)values(6, 'Rajat', 'TY');
+INSERT 0 1
+postgres=# select * from student01;
+ sno |  s_name  | s_class
+-----+----------+---------
+   1 | Sneha    | SY
+   2 | Tejas    | TY
+   3 | Pournima | FY
+   4 | Yadnesh  | SY
+   5 | Harsh    | FY
+   6 | Rajat    | TY
+(6 rows)
+
+create table teacher01(tno int, t_name varchar(20), yrs_experience int);
+CREATE TABLE
+postgres=# insert into teacher01(tno, t_name, yrs_experience)values(1, 'Prof Tarate', 8);
+INSERT 0 1
+postgres=# insert into teacher01(tno, t_name, yrs_experience)values(2, 'Prof Firke', 5);
+INSERT 0 1
+postgres=# insert into teacher01(tno, t_name, yrs_experience)values(3, 'Prof Ingale', 10);
+INSERT 0 1
+postgres=# insert into teacher01(tno, t_name, yrs_experience)values(4, 'Prof Ankar', 3);
+INSERT 0 1
+postgres=# insert into teacher01(tno, t_name, yrs_experience)values(5, 'Prof Jagzap', 6);
+INSERT 0 1
+postgres=# insert into teacher01(tno, t_name, yrs_experience)values(6, 'Prof Sawant', 11);
+INSERT 0 1
+postgres=# select * from teacher01;
+ tno |   t_name    | yrs_experience
+-----+-------------+----------------
+   1 | Prof Tarate |              8
+   2 | Prof Firke  |              5
+   3 | Prof Ingale |             10
+   4 | Prof Ankar  |              3
+   5 | Prof Jagzap |              6
+   6 | Prof Sawant |             11
+(6 rows)
+
+
+B Execute the following queries in PostGreSQL (any 3)                                                 [6 marks]
+i.	List teachers having > 5 yrs of experience.
+         select * from teacher01 where yrs_experience > 5;
+         tno |   t_name    | yrs_experience
+        -----+-------------+----------------
+         1 | Prof Tarate |              8
+         3 | Prof Ingale |             10
+         5 | Prof Jagzap |              6
+         6 | Prof Sawant |             11
+        (4 rows)
+
+ii.	List all students studying in “FY.
+        select * from student01 where s_class = 'FY';
+        sno |  s_name  | s_class
+       -----+----------+---------
+       3 | Pournima | FY
+       5 | Harsh    | FY
+      (2 rows)
+iii.	Count the number of teachers who teach subject “____”
+       select count(subject) as count from teacher01 where subject = 'English';
+       count
+       -------
+       2
+      (1 row)
+
+iv.	Delete record of student whose sno “_________”
+
+       delete from student01 where sno = 3;
+       DELETE 1
+       postgres=# select * from student01;
+       sno | s_name  | s_class
+      -----+---------+---------
+     1 | Sneha   | SY
+     2 | Tejas   | TY
+     4 | Yadnesh | SY
+     5 | Harsh   | FY
+     6 | Rajat   | TY
+  (5 rows)
+
+v.	Add designation column in teacher table
+
+    postgres=# alter table teacher01 add t_designation varchar(10);
+    ALTER TABLE
+    postgres=# select * from teacher01;
+    tno |   t_name    | yrs_experience | t_designation
+    -----+-------------+----------------+---------------
+   1 | Prof Tarate |              8 |
+   2 | Prof Firke  |              5 |
+   3 | Prof Ingale |             10 |
+   4 | Prof Ankar  |              3 |
+   5 | Prof Jagzap |              6 |
+   6 | Prof Sawant |             11 |
+  (6 rows)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Slip – 9
+
+
+Section II : Database Management Systems [15 marks] 
+Consider the following Student-Teacher database 
+Student (sno , s_name, s_class) s_class can be either "FY", "SY" or "TY" 
+Teacher (tno , t_name, yrs_experience ) 
+The relationship is as follows: Student-Teacher: M-M with descriptive attribute Subject.
+
+Q 2) A Create the above database in PostGreSQL and insert sufficient records. [5 marks]
+create table student01(sno int, s_name varchar(20), s_class varchar(5));
+CREATE TABLE
+postgres=# insert into student01(sno, s_name, s_class)values(1, 'Sneha', 'SY');
+INSERT 0 1
+postgres=# insert into student01(sno, s_name, s_class)values(2, 'Tejas', 'TY');
+INSERT 0 1
+postgres=# insert into student01(sno, s_name, s_class)values(3, 'Pournima', 'FY');
+INSERT 0 1
+postgres=# insert into student01(sno, s_name, s_class)values(4, 'Yadnesh', 'SY');
+INSERT 0 1
+postgres=# insert into student01(sno, s_name, s_class)values(5, 'Harsh', 'FY');
+INSERT 0 1
+postgres=# insert into student01(sno, s_name, s_class)values(6, 'Rajat', 'TY');
+INSERT 0 1
+postgres=# select * from student01;
+ sno |  s_name  | s_class
+-----+----------+---------
+   1 | Sneha    | SY
+   2 | Tejas    | TY
+   3 | Pournima | FY
+   4 | Yadnesh  | SY
+   5 | Harsh    | FY
+   6 | Rajat    | TY
+(6 rows)
+
+create table teacher01(tno int, t_name varchar(20), yrs_experience int);
+CREATE TABLE
+postgres=# insert into teacher01(tno, t_name, yrs_experience)values(1, 'Prof Tarate', 8);
+INSERT 0 1
+postgres=# insert into teacher01(tno, t_name, yrs_experience)values(2, 'Prof Firke', 5);
+INSERT 0 1
+postgres=# insert into teacher01(tno, t_name, yrs_experience)values(3, 'Prof Ingale', 10);
+INSERT 0 1
+postgres=# insert into teacher01(tno, t_name, yrs_experience)values(4, 'Prof Ankar', 3);
+INSERT 0 1
+postgres=# insert into teacher01(tno, t_name, yrs_experience)values(5, 'Prof Jagzap', 6);
+INSERT 0 1
+postgres=# insert into teacher01(tno, t_name, yrs_experience)values(6, 'Prof Sawant', 11);
+INSERT 0 1
+postgres=# select * from teacher01;
+ tno |   t_name    | yrs_experience
+-----+-------------+----------------
+   1 | Prof Tarate |              8
+   2 | Prof Firke  |              5
+   3 | Prof Ingale |             10
+   4 | Prof Ankar  |              3
+   5 | Prof Jagzap |              6
+   6 | Prof Sawant |             11
+(6 rows)
+
+B Execute the following queries in PostGreSQL (any 3)                                              [6 marks]
+
+i.	Give class-wise number of students.
+       select count(s_class) as count from student01 where s_class = 'FY';
+       count
+       -------
+       2
+       (1 row)
+
+      select count(s_class) as count from student01 where s_class = 'SY';
+      count
+      -------
+      2
+     (1 row)
+
+     select count(s_class) as count from student01 where s_class = `TY';
+     count
+     -------
+     2
+    (1 row)
+
+
+
+
+
+
+
+ii.	List all students studying in class “TY”. 
+      postgres=# select * from student01 where s_class=`TY’;
+      sno |  s_name  | s_class
+      -----+----------+---------
+        2 | Tejas    | TY
+        6 | Rajat    | TY
+      (2 rows)
+ 
+
+iii.	Count the number of students who have taken subject “____” 
+       select count(subject) as count from student01 where subject = 'Maths';
+       count
+       -------
+       2
+       (1 row)
+
+iv.	Delete record of student whose sno “_________”
+       postgres=# delete from student01 where s_no= 3;
+        DELETE 1
+   
+v.	Add designation column in teacher table
+        postgres=# alter table teacher01 add t_designation varchar(10);
+        ALTER TABLE
+        postgres=# select * from teacher01;
+        tno |   t_name    | yrs_experience | t_designation
+        -----+-------------+----------------+---------------
+        1 | Prof Tarate |              8 |
+        2 | Prof Firke  |              5 |
+        3 | Prof Ingale |             10 |
+        4 | Prof Ankar  |              3 |
+        5 | Prof Jagzap |              6 |
+        6 | Prof Sawant |             11 |
+       (6 rows)
+
+
+
+
+
+
+
+
+
+
+
+Slip – 10
+
+
+Section II : Database Management Systems [15 marks] 
+Create the following tables ( primary keys are underlined). 
+Person (pnumber, pname, birthdate, income), 
+Area( aname,area_type). 
+There exists a one-to-many relationship between Area and Person. The attribute ‘area_type’ can have values as either urban or rural.
+
+Q 2) A  Create the above database in PostGreSQL and insert sufficient records.      [5 marks]
+
+create table person(pnumber int, pname varchar(10), birthdate date, income float);
+CREATE TABLE
+insert into person(pnumber, pname, birthdate, income)values(1, 'Sneha', '26-Jan-2003', 70000);
+INSERT 0 1
+postgres=# insert into person(pnumber, pname, birthdate, income)values(2, 'Yadnesh', '04-Apr-2002', 30000);
+INSERT 0 1
+postgres=# insert into person(pnumber, pname, birthdate, income)values(3, 'Rajat', '23-Oct-2002', 5000);
+INSERT 0 1
+postgres=# insert into person(pnumber, pname, birthdate, income)values(4, 'Tejas', '11-Sept-2002', 90000);
+INSERT 0 1
+postgres=# insert into person(pnumber, pname, birthdate, income)values(5, 'Pournima', '16-Feb-2003', 9000);
+INSERT 0 1
+postgres=# insert into person(pnumber, pname, birthdate, income)values(6, 'Harsh', '16-Feb-2003', 10000);
+INSERT 0 1
+postgres=# select * from person;
+ pnumber |  pname   | birthdate  | income
+---------+----------+------------+--------
+       1 | Sneha    | 2003-01-26 |  70000
+       2 | Yadnesh  | 2002-04-04 |  30000
+       3 | Rajat    | 2002-10-23 |   5000
+       4 | Tejas    | 2002-09-11 |  90000
+       5 | Pournima | 2003-02-16 |   9000
+       6 | Harsh    | 2003-02-16 |  10000
+(6 rows)
+
+insert into area(aname, area_type)values('Satara', 'Urban');
+INSERT 0 1
+postgres=# insert into area(aname, area_type)values('Pune', 'Metro');
+INSERT 0 1
+postgres=# insert into area(aname, area_type)values('Delhi', 'Metro');
+INSERT 0 1
+postgres=# insert into area(aname, area_type)values('Pune', 'Metro');
+INSERT 0 1
+postgres=# insert into area(aname, area_type)values('Nashik', 'Rural');
+INSERT 0 1
+postgres=# insert into area(aname, area_type)values('Ahemdabad', 'Urban');
+INSERT 0 1
+postgres=# select * from area;
+   aname   | area_type
+-----------+-----------
+ Satara    | Urban
+ Pune      | Metro
+ Delhi     | Metro
+  Pune      | Metro
+ Nashik    | Rural
+ Ahemdabad | Urban
+(6 rows)
+
+ 
+B  Execute the following queries in PostGreSQL (any 3)                                          [6 marks]
+
+i.	List the details of persons having income > 10000.
+
+      postgres=# select * from person where income > 10000;
+      pnumber |  pname  | birthdate  | income
+      ---------+---------+------------+--------
+       1 | Sneha   | 2003-01-26 |  70000
+       2 | Yadnesh | 2002-04-04 |  30000
+       4 | Tejas   | 2002-09-11 |  90000
+      (3 rows)	
+
+ii.	Transfer all people living in ‘Pune’ to ‘Delhi’.
+
+      update area set aname = 'Delhi' where aname = 'Pune';
+     UPDATE 2
+     postgres=# select * from area;
+     aname   | area_type
+     -----------+-----------
+    Satara    | Urban
+    Delhi     | Metro
+    Nashik    | Rural
+    Ahemdabad | Urban
+    Delhi     | Metro
+    Delhi     | Metro
+    (6 rows)
+
+iii.	Count number of area’s having type ‘urban’.
+   select count(area_type) as count from area where area_type = 'Urban';
+   count
+   -------
+     2
+(1 row)
+
+iv.	Give the count of people who are born on “_________”.
+
+  select count(birthdate) as count from person where birthdate = '16-Feb-2003';
+  count
+  -------
+  2
+  (1 row)
+
+v.	List the names of all people living in ‘_____’ area.
+
+     postgres=# select * from area where aname=`Delhi’;
+     aname   | area_type  | pname
+     -----------+-----------+-----------
+     Delhi     | Metro    |  Sneha
+     Delhi     | Metro    |  Harsh
+    (2 rows)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Slip – 11
+
+
+Section II : Database Management Systems [15 marks] 
+Create the following tables ( primary keys are underlined).
+Emp(eno, ename, designation, sal) Dept(dno, dname, dloc) 
+There exists a one-to-many relationship between Dept and Emp.
+
+Q 2) A  Create the above database in PostGreSQL and insert sufficient records.    [5 marks]
+
+postgres=# create table emp(eno int primary key,ename varchar(25),designation varchar(25),salary float);
+CREATE TABLE
+postgres=# insert into emp values(1,'yadnesh','manager',550000);
+INSERT 0 1
+postgres=# insert into emp values(2,'pournima','ast_manager',490000);
+INSERT 0 1
+postgres=# insert into emp values(3,'sneha','cashier',470000);
+INSERT 0 1
+postgres=# insert into emp values(4,'tejas','accountant',450000);
+INSERT 0 1
+postgres=# insert into emp values(5,'rajat','loan officer',40000);
+INSERT 0 1
+postgres=# insert into emp values(6,'harsh','clerck',40000);
+INSERT 0 1
+postgres=# create table dept_1(dno int primary key,dmane varchar(30),dloc varchar(30));
+CREATE TABLE
+postgres=# insert into dept_1  values(30,'accounting','nashik');
+INSERT 0 1
+postgres=# insert into dept_1  values(40,'research','pune');
+INSERT 0 1
+postgres=# insert into dept_1  values(50,'sales','satara');
+INSERT 0 1
+postgres=# insert into dept_1  values(60,'operations','kolhapr');
+INSERT 0 1
+postgres=# select *from emp;
+ eno |  ename   | designation  | salary
+-----+----------+--------------+--------
+   1 | yadnesh  | manager      | 550000
+   2 | pournima | ast_manager  | 490000
+   3 | sneha    | cashier      | 470000
+   4 | tejas    | accountant   | 450000
+   5 | rajat    | loan officer |  40000
+   6 | harsh    | clerck       |  40000
+(6 rows)
+
+
+postgres=# select *from dept_1;
+ dno |   dmane    |  dloc
+-----+------------+---------
+  30 | accounting | nashik
+  40 | research   | pune
+  50 | sales      | satara
+  60 | operations | kolhapr
+(4 rows)
+
+
+B  Execute the following queries in PostGreSQL (any 3)                                                       [6 marks]
+
+i.	Increase salary of “managers” by 15%;
+    postgres=# update emp set salary=salary+(salary+0.015) where eno=1;
+    UPDATE 1
+    postgres=# select *from emp;
+    eno |  ename   | designation  |       salary
+   -----+----------+--------------+--------------------
+   2 | pournima | ast_manager  |             490000
+   3 | sneha    | cashier      |             470000
+   4 | tejas    | accountant   |             450000
+   5 | rajat    | loan officer |              40000
+   6 | harsh    | clerck       |              40000
+   1 | yadnesh  | manager      | 1100000.0150000001
+  (6 rows)
+
+ii.	Delete all employees of department no 30;
+   postgres=# delete from dept_1 where dno=30;
+   DELETE 1
+   postgres=# select *from dept_1;
+   dno |   dmane    |  dloc
+  -----+------------+---------
+  40 | research   | pune
+  50 | sales      | satara
+  60 | operations | kolhapr
+  (3 rows)
+
+iii.	Count the number of employees in dept no ____.
+  postgres=# select count (dno) as count from dept_1 where dno='50';
+  count
+  -------
+     1
+(1 row)
+
+iv.	List the details of employees having salary between 30000 and 50000.
+   postgres=# select *from emp where salary between 30000 and 50000;
+   eno | ename | designation  | salary
+   -----+-------+--------------+--------
+   5 | rajat | loan officer |  40000
+   6 | harsh | clerck       |  40000
+  (2 rows)
+
+v.	Display the average salary of employee.
+   postgres=# select avg (salary) as Avg from emp;
+        avg
+   -------------------
+   431666.6691666667
+  (1 row)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Slip – 12
+
+
+Section II : Database Management Systems [15 marks] 
+Create the following tables ( primary keys are underlined). 
+Person (pnumber, pname, birthdate, income), 
+Area( aname, area_type). 
+There exists a one-to-many relationship between Area and Person. The attribute ‘area_type’ can have values as either urban or rural.
+
+Q 2) A   Create the above database in PostGreSQL and insert sufficient records.         [5 marks] 
+
+postgres=#  create table person2(pno int,pname varchar(30),birthdate float,income float);
+CREATE TABLE
+postgres=#  insert into person2 values(1,'pournima',2002-01-12,40000);
+INSERT 0 1
+postgres=#  insert into person2 values(2,'yadnesh',2002-06-22,45000);
+INSERT 0 1
+postgres=#  insert into person2 values(3,'sneha',2003-01-26,60000);
+INSERT 0 1
+postgres=#  insert into person2 values(4,'tejas',2002-09-11,55000);
+INSERT 0 1
+postgres=#  insert into person2 values(5,'mr.kumar',2000-08-15,20000);
+INSERT 0 1
+postgres=#  insert into person2 values(6,'rajat',2002-03-22,45000);
+INSERT 0 1
+postgres=#  insert into person2 values(7,'harsh',2001-08-06,40000);
+INSERT 0 1
+postgres=# select*from person2;
+ pno |  pname   | birthdate | income
+-----+----------+-----------+--------
+   1 | pournima |      2002 |  40000
+   2 | yadnesh  |      2002|  45000
+   3 | sneha    |      2003|  60000
+   4 | tejas    |      2002|  55000
+   5 | mr.kumar |     2000|  20000
+   6 | rajat    |      2002|  45000
+   7 | harsh    |      2001 |  40000
+(7 rows)
+
+ postgres=#create table area(aname varchar(30),area_type varchar(20));
+CREATE TABLE
+postgres=# insert into area values('mumbai','urban');
+INSERT 0 1
+postgres=# insert into area values('mumbai','rural');
+INSERT 0 1
+postgres=#
+postgres=# insert into area values('nashik','urban');
+INSERT 0 1
+postgres=# insert into area values('dhule','rural');
+INSERT 0 1
+postgres=# insert into area values('satara','urban');
+INSERT 0 1
+postgres=# insert into area values('pune','rural');
+INSERT 0 1
+
+postgres=# select *from area;
+ aname  | area_type
+--------+-----------
+ mumbai | urban
+ mumbai | rural
+ nashik | urban
+ dhule  | rural
+ satara | urban
+ pune   | rural
+(6 rows)
+
+
+B   Execute the following queries in PostGreSQL (any 3)                                                        [6 marks]
+
+i.	Delete the record of “Mr. Kumar”.
+        postgres=# delete from person2 where pname= 'mr.kumar';
+        DELETE 1
+
+ii.	Transfer all people living in ‘Mumbai’ to ‘Pune’.
+       postgres=# update area set aname='pune' where aname='mumbai';
+       UPDATE 2
+       postgres=# select *from area;
+      aname  | area_type
+      --------+-----------
+      nashik | urban
+      dhule  | rural
+      satara | urban
+      pune   | rural
+      pune   | urban
+      pune   | rural
+      (6 rows)
+
+iii.	Count number of area’s having type ‘urban’.
+
+     postgres=# select count (area_type) as count from area where area_type= 'urban';
+     count
+     -------
+     3
+     (1 row)
+
+iv.	Give the count of people who are living in “_________”.
+
+     postgres=# select count (aname) as count from person2 where aname= 'Nashik';
+     count
+     -------
+     1
+     (1 row)
+
+v.	Calculate the average income of people in “Pune”.
+      postgres=# select avg (salary) as Avg from person2 where aname=`Pune’;
+       avg
+       -------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Slip – 13
+
+
+Section II : Database Management Systems [15 marks] 
+Create the following tables ( primary keys are underlined). 
+Account ( acct_no ,acct_type, balance, branch_name) 
+Customer (cust_no, cust_name, cust_city) 
+Relationships : Customer-Account :1-M Constraints: acct_type can be “saving” or “current”, balance > 0
+
+
+Q 2) A  Create the above database in PostGreSQL and insert sufficient records.   [5 marks]
+
+create table account(acct_no float, acct_type varchar(10), balance float, branch_name varchar(10));
+CREATE TABLE
+postgres=# insert into account(acct_no, acct_type, balance, branch_name)values(111, 'saving', 100000, 'MG Road');
+INSERT 0 1
+postgres=# insert into account(acct_no, acct_type, balance, branch_name)values(222, 'current', 80000, 'CV Road');
+INSERT 0 1
+postgres=# insert into account(acct_no, acct_type, balance, branch_name)values(333, 'current', 50000, 'MG Road');
+INSERT 0 1
+postgres=# insert into account(acct_no, acct_type, balance, branch_name)values(444, 'saving', 30000, 'MG Road');
+INSERT 0 1
+postgres=# insert into account(acct_no, acct_type, balance, branch_name)values(555, 'saving', 10000, 'CV Road');
+INSERT 0 1
+postgres=# select * from account;
+ acct_no | acct_type | balance | branch_name
+---------+-----------+---------+-------------
+     111 | saving    |  100000 | MG Road
+     222 | current   |   80000 | CV Road
+     333 | current   |   50000 | MG Road
+     444 | saving    |   30000 | MG Road
+     555 | saving    |   10000 | CV Road
+(5 rows)
+create table customer(cust_no int, cust_name varchar(10), cust_city varchar(10));
+CREATE TABLE
+postgres=# insert into customer(cust_no, cust_name, cust_city)values(1, 'Sneha', 'Satara');
+INSERT 0 1
+postgres=# insert into customer(cust_no, cust_name, cust_city)values(2, 'Rajat', 'Nashik');
+INSERT 0 1
+postgres=# insert into customer(cust_no, cust_name, cust_city)values(3, 'Tejas', 'Pune');
+INSERT 0 1
+postgres=# insert into customer(cust_no, cust_name, cust_city)values(4, 'Yadnesh', 'Mumbai');
+INSERT 0 1
+postgres=# insert into customer(cust_no, cust_name, cust_city)values(5, 'Pournima', 'Nashik');
+INSERT 0 1
+postgres=# select * from customer;
+ cust_no | cust_name | cust_city
+---------+-----------+-----------
+       1 | Sneha     | Satara
+       2 | Rajat     | Nashik
+       3 | Tejas     | Pune
+       4 | Yadnesh   | Mumbai
+       5 | Pournima  | Nashik
+(5 rows)
+
+
+B     Execute the following queries in PostGreSQL (any 3)                                                [6 marks]
+
+i.	Display information of all saving accounts having balance > ____
+       select * from account where balance > 30000;
+      acct_no | acct_type | balance | branch_name
+     ---------+-----------+---------+-------------
+     111 | saving    |  100000 | MG Road
+     222 | current   |   80000 | CV Road
+     333 | current   |   50000 | MG Road
+     (3 rows)
+
+ii.	Count customers in city “___________”.
+     select count(cust_city) as count from customer where cust_city = 'Nashik';
+     count
+    -------
+     2
+    (1 row)
+
+iii.	Find the total balance at branch “M.G.Road”.
+     select sum(balance) as sum from account where branch_name = 'MG Road';
+     sum
+    --------
+    180000
+    (1 row)
+
+iv.	Delete the record whose cust_name is “____________”.
+    delete from customer where cust_name = 'Yadnesh';
+   DELETE 1
+   postgres=# select * from customer;
+   cust_no | cust_name | cust_city
+   ---------+-----------+-----------
+       1 | Sneha     | Satara
+       2 | Rajat     | Nashik
+       3 | Tejas     | Pune
+       5 | Pournima  | Nashik
+    (4 rows)
+
+v.	Change city of customer “_____” to “Pune”
+     update customer set cust_city = 'Pune' where cust_city = 'Satara';
+     UPDATE 1
+     postgres=# select * from customer;
+    cust_no | cust_name | cust_city
+    ---------+-----------+-----------
+       2 | Rajat     | Nashik
+       3 | Tejas     | Pune
+       5 | Pournima  | Nashik
+       1 | Sneha     | Pune
+   (4 rows)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Slip – 14
+
+
+Section II : Database Management Systems [15 marks] 
+Create the following tables ( primary keys are underlined). 
+Emp (eno, ename, salary) Project (pno, pname, budget) 
+Relationships: Emp– Project : M – M with descriptive attribute no-of-hrs.
+
+
+Q 2) A  Create the above database in PostGreSQL and insert sufficient records.        [5 marks]
+
+create table Emp(eno int, ename varchar(10), salary float);
+CREATE TABLE
+postgres=# insert into Emp(eno, ename, salary)values(1, 'Rajat', 8000);
+INSERT 0 1
+postgres=# insert into Emp(eno, ename, salary)values(2, 'Pournima', 6000);
+INSERT 0 1
+postgres=# insert into Emp(eno, ename, salary)values(3, 'Tejas', 9000);
+INSERT 0 1
+postgres=# insert into Emp(eno, ename, salary)values(4, 'Sneha', 6000);
+INSERT 0 1
+postgres=# insert into Emp(eno, ename, salary)values(5, 'Yadnesh', 4000);
+INSERT 0 1
+postgres=# select * from Emp;
+ eno |  ename   | salary
+-----+----------+--------
+   1 | Rajat    |   8000
+   2 | Pournima |   6000
+   3 | Tejas    |   9000
+   4 | Sneha    |   6000
+   5 | Yadnesh  |   4000
+(5 rows)
+ create table Project(pno int, pname varchar(10), budget float);
+CREATE TABLE
+postgres=# insert into Project(pno, pname, budget)values(1, 'Physics', 40000);
+INSERT 0 1
+postgres=# insert into Project(pno, pname, budget)values(2, 'Chemistry', 20000);
+INSERT 0 1
+postgres=# insert into Project(pno, pname, budget)values(3, 'Math', 30000);
+INSERT 0 1
+postgres=# insert into Project(pno, pname, budget)values(4, 'CS', 50000);
+INSERT 0 1
+postgres=# insert into Project(pno, pname, budget)values(5, 'Database', 70000);
+INSERT 0 1
+postgres=# select * from Project;
+ pno |   pname   | budget
+-----+-----------+--------
+   1 | Physics   |  40000
+   2 | Chemistry |  20000
+   3 | Math      |  30000
+   4 | CS        |  50000
+   5 | Database  |  70000
+(5 rows)
+
+B   Execute the following queries in PostGreSQL   (any 3)                                               [6 marks]
+
+i.	Find the maximum budget.
+     select max(budget) as max from Project;
+     max
+    -------
+    70000
+     (1 row)
+
+ii.	Increase the salary of all employees by 10%
+
+iii.	Count the number of projects having duration > 100 hrs.
+     postgres=# select count (no_of_hrs) as count from project where no_of_hrs> 100;
+     count
+     -------
+     2
+    (1 row)
+
+iv.	List all employees whose name ends with “a“.
+     select ename from emp where ename like 'a%';
+     name
+     ------
+      2
+     (1 rows)
+
+v.	Add column contact_number to employee table.
+
+    alter table Emp add contact_number float;
+    ALTER TABLE
+    postgres=# select * from Emp;
+    eno |  ename   | salary | contact_number
+   -----+----------+--------+----------------
+   1 | Rajat    |   8080 |
+   2 | Pournima |   6060 |
+   3 | Tejas    |   9090 |
+   4 | Sneha    |   6060 |
+   5 | Yadnesh  |   4040 |
+
+Slip – 15
+
+
+Section II : Database Management Systems [15 marks] 
+Create the following tables ( primary keys are underlined). 
+Sales_order(s_orderno, s_order_date, order_amt) 
+Client(client_no, name, address) 
+There exists a one-to-many relationship between Client and Sales_order Constraints: order_amt > 0
+
+
+Q 2) A   Create the above database in PostGreSQL and insert sufficient records.               [5 marks]
+
+create table client( cno int primary key, name text, address text);
+insert into client values(1,'Tejas','Jalgaon');
+insert into client values(2,'Sneha','Satara');
+insert into client values(3,'Pournima','Mumbai');
+insert into client values(4,'Harsh','Goa');
+insert into client values(5,'Rajat','Nagpur');
+insert into client values(6,'Yadnesh','Nashik');
+ cno |   name   | address
+-----+----------+---------
+   1 | Tejas    | Jalgaon
+   2 | Sneha    | Satara
+   3 | Pournima | Mumbai
+   4 | Harsh    | Goa
+   5 | Rajat    | Nagpur
+   6 | Yadnesh  | Nashik
+
+
+ postgres=# create table osales(orderno int primary key, odate date,oamt float);
+CREATE TABLE
+postgres=# insert into osales(orderno,odate,oamt)values(1,'1-jan-2003',23000);
+INSERT 0 1
+postgres=# insert into osales(orderno,odate,oamt)values(30,'4-may-2003',23000);
+INSERT 0 1
+postgres=# insert into osales(orderno,odate,oamt)values(22,'1-dec-2003',26000);
+postgres=# insert into osales(orderno,odate,oamt)values(33,'4-sep-2003',21000);
+postgres=# insert into osales(orderno,odate,oamt)values(7,'4-nov-2003',27000);
+
+
+
+orderno |   odate    | oamt
+---------+------------+-------
+       1 | 2003-01-01 | 23000
+      30 | 2003-05-04 | 23000
+      22 | 2003-12-01 | 26000
+       7 | 2003-11-01 | 27000
+      33 | 2003-09-04 | 21000
+B    Execute the following queries in PostGreSQL (any 3)                                              [6 marks]
+
+i.	Update the client address of all clients from “Nagpur” to “Aurangabad”.
+     postgres=# update client set address ='Aurangabad' where address= 'Nagpur';
+     UPDATE 1
+     postgres=# select* from client;
+     cno |   name   |  address
+     -----+----------+------------
+   1 | Tejas    | Jalgaon
+   2 | Sneha    | Satara
+   3 | Pournima | Mumbai
+   4 | Harsh    | Goa
+   6 | Yadnesh  | Nashik
+   5 | Rajat    | Aurangabad
+
+ii.	Delete all sales order whose client number is 30; 
+   delete from client where cno = '30';
+    -----+----------+------------
+   (0 rows)
+
+iii.	Display all sale records having order date before “__________”. 
+    
+
+
+iv.	Display sales order having maximum order amount. 
+    select max(oamt) as max from sales_order;
+     max
+    -------
+    27000
+     (1 row)
+
+
+v.	Add column order_status to the Sales_order table.
+    alter table sales_order add order_status varchar(20);
+    ALTER TABLE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Slip – 16
+
+
+Section II : Database Management Systems [15 marks] 
+Create the following tables ( primary keys are underlined). 
+Bus ( Bus_no , capacity ,depot_name) 
+Route (Route_no ,source ,destination ,no_of_stations ) 
+Relationship : Bus-Route : M-1 
+Constraint : Bus capacity is not null
+
+
+Q 2) A  Create the above database in PostGreSQL and insert sufficient records.             [5 marks]
+
+db9=# create table route(rno int primary key,source varchar(20),destination varchar(20),sno float);
+CREATE TABLE
+db9=# insert into route(rno,source,destination,sno)values(1,'station','nashik',12);
+INSERT 0 1
+db9=# insert into route(rno,source,destination,sno)values(2,'depo','sinner',13);
+INSERT 0 1
+db9=# insert into route(rno,source,destination,sno)values(2,'station','kopargao',9);
+ERROR:  duplicate key value violates unique constraint "route_pkey"
+DETAIL:  Key (rno)=(2) already exists.
+db9=# insert into route(rno,source,destination,sno)values(3,'station','kopargao',9);
+INSERT 0 1
+db9=# insert into route(rno,source,destination,sno)values(4,'depo','nashik',7);
+INSERT 0 1
+db9=# select * from route;
+ rno | source  | destination | sno
+-----+---------+-------------+-----
+   1 | station | nashik      |  12
+   2 | depo    | sinner      |  13
+   3 | station | kopargao    |   9
+   4 | depo    | nashik      |   7
+(4 rows)
+
+
+B    Execute the following queries in PostGreSQL (any 3)                                                         [6 marks]
+
+i.	List all buses at depot “________”.
+     db9=# select * from bus where dname='sinner';
+     bno | capacity | dname
+    -----+----------+--------
+   2 |      173 | sinner
+   4 |      673 | sinner
+   5 |      184 | sinner
+   (3 rows)
+
+ii.	Delete Bus whose Bus number is “____________”.
+      db9=# delete from bus where bno=2;
+     DELETE 1
+     db9=# select * from bus;
+     bno | capacity |  dname
+    -----+----------+----------
+   1 |      126 | kopargao
+   3 |      129 | nashik
+   4 |      673 | sinner
+   5 |      184 | sinner
+   (4 rows)
+
+iii.	List all buses on route number 41.
+    db9=# select * from route where rno=41;
+    rno | source  | destination | sno
+    -----+---------+-------------+-----
+    (0 rows)
+
+iv.	List the route details having number of stations > 10.
+      db9=# select * from route where sno>10;
+      rno | source  | destination | sno
+     -----+---------+-------------+-----
+   1 | station | nashik      |  12
+   2 | depo    | sinner      |  13
+   (2 rows)
+
+v.	List all routes starting from “Station”.
+      db9=# select * from route where source='station';
+      rno | source  | destination | sno
+     -----+---------+-------------+-----
+   1 | station | nashik      |  12
+   3 | station | kopargao    |   9
+   (2 rows)
+
+
+
