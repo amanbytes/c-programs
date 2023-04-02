@@ -12,7 +12,6 @@ struct node {
 
 struct node * create_bin_tree();
 void print_bin_tree(struct node *temp);
-struct node * copy_bin_tree(struct node * temp);
 int count_nodes(struct node *temp);
 
 int main()
