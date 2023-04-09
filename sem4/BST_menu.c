@@ -2,20 +2,7 @@
 
 #include<stdio.h>
 #include<stdlib.h>
-
-#define new_node (struct BSTnode *)malloc(sizeof(struct BSTnode))
-
-struct BSTnode {
-    int data;
-    struct BSTnode *l,*r;
-};
-
-struct BSTnode * create();
-struct BSTnode * insert(struct BSTnode *temp, int data);
-struct BSTnode * search(struct BSTnode *temp, int data);
-void preorder(struct BSTnode *temp);
-void inorder(struct BSTnode *temp);
-void postorder(struct BSTnode *temp);
+#include"btree.h"
 
 int main()
 {
@@ -31,7 +18,8 @@ int main()
         printf("\n3. Print Postorder");
         printf("\n4. Search Element");
         printf("\n5. Insert a element");
-        printf("\n6.Exit");
+        printf("\n6. Print Tree");
+        printf("\n7.Exit");
         printf("\n-> ");
         scanf("%d",&cont);
         switch (cont)
@@ -55,9 +43,10 @@ int main()
                 int key;
                 printf("\nEnter the element to search: ");
                 scanf("%d",&key);
-                struct BSTnode *ele = NULL;
-                ele = search(tree1,key);
-                ele == NULL ? printf ("\nElement is not in the BST") : printf("\n Element found, address is %u\n",ele);
+                struct reply elu;
+                reset(elu);
+                elu = search(tree1,key);
+                elu.ele == NULL ? printf ("\nElement is not in the BST") : printf("\nElement found, address is %u\nLevel/Depth is %d",elu.ele,elu.pos-1);
                 break;
         case 5 :
                 int data;
@@ -66,84 +55,10 @@ int main()
                 insert(tree1,data);
                 printf("\nInsertion completed!!\n");
                 break;
-        case 6 : exit(0);
+        case 6 :
+                print_ascii_tree(tree1);
+                break;
+        case 7 : exit(0);
         }
     } while (1);
-}
-
-struct BSTnode * create()
-{
-    int no,data;
-    struct BSTnode *t=NULL;
-    printf("\nHow many nodes? : ");
-    scanf("%d",&no);
-    printf("\nEnter the data for nodes: ");
-    for(int i=0;i<no;i++)
-    {
-        scanf("%d",&data);
-        t=insert(t,data);
-    }
-    return t;
-}
-
-struct BSTnode * insert(struct BSTnode *temp, int data)
-{
-  if (temp==NULL)
-  { temp=new_node;
-    temp->data=data;
-    temp->l=NULL;
-    temp->r=NULL;
-  }
-  else
-  if(data > temp->data)
-  { temp->r=insert(temp->r,data);
-    return(temp);
-  }
-  else
-   temp->l=insert(temp->l,data);
-  return(temp);
-}
-
-struct BSTnode * search(struct BSTnode *temp, int data)
-{
-    int num;
-    if (temp!=NULL)
-    num=temp->data;
-    if(temp!=NULL)
-    {
-        return (data==num) ? temp : data<num ? search(temp->l,data): search(temp->r,data);
-    }
-    else 
-        return  NULL;
-}
-
-
-void preorder(struct BSTnode *temp)
-{
-    if (temp != NULL)
-    {
-        printf("%d ", temp->data);
-        preorder(temp->l);
-        preorder(temp->r);
-    }
-}
-
-void inorder(struct BSTnode *temp)
-{
-    if (temp != NULL)
-    {
-        inorder(temp->l);
-        printf("%d ", temp->data);
-        inorder(temp->r);
-    }
-}
-
-void postorder(struct BSTnode *temp)
-{
-    if (temp != NULL)
-    {
-        postorder(temp->l);
-        postorder(temp->r);
-        printf("%d ", temp->data);
-    }
 }
